@@ -19,7 +19,8 @@ public:
 		tail.data = other.tail.data;
 	}
 	tList& operator=(const tList &rhs) {
-
+		head.data = rhs.head.data;
+		tail.data = rhs.tail.data;
 	}
 	~tList() { delete head; delete tail; }
 
@@ -48,8 +49,8 @@ public:
 		Node* n;
 		n.data = val;
 		n.previous = tail;
-		if (head.next == nullptr)
-			head.next = n;
+		if (tail.previous == nullptr)
+			tail.previous = n;
 		tail = n;
 	}
 	void pop_back() {
