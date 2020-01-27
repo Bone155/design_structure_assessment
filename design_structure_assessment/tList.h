@@ -11,41 +11,29 @@ class tList
 
 	Node * head;
 	Node * tail;
-	size_t nodeSize;
+	
 public:
 	tList() { 
-		head = nullptr;
-		tail = nullptr;
-
-		head->next = tail;
-		head->prev = nullptr;
-
-		tail->next = nullptr;
-		tail->prev = head;
-
-		nodeSize = 0;
+		head = new Node();
+		tail = new Node();
 	}
 	tList(const tList& other) {
-		head = other.head;
-		tail = other.tail;
-		size = other.size;
+		head->data = other.head->data;
+		head->next = other.head->next;
+		head->prev = other.head->prev;
+
+		tail->data = other.tail->data;
+		tail->next = other.head->next;
+		tail->prev = other.head->prev;
 	}
 	tList& operator=(const tList &rhs) {
-		
-		head->data = rhs.head->data;
-		head->next = rhs.head->next;
-		head->prev = rhs.head->previous;
-
-		tail->data = rhs.tail->data;
-		tail->next = rhs.head->next;
-		tail->prev = rhs.head->previous;
-
-		nodeSize = rhs.nodeSize;
+		head = rhs.head;
+		tail = rhs.tail;
 	}
 	~tList() { delete head; delete tail; }
 
 	void push_front(const T& val) {
-		Node* n{};
+		Node* n = new Node();
 		n->data = val;
 		n->next = head;
 		if (head->next == nullptr)
@@ -53,7 +41,7 @@ public:
 		head = n;
 	}
 	void pop_front() {
-		Node* n;
+		Node* n = new Node();
 		if (head != nullptr) {
 			n = head;
 
@@ -66,31 +54,31 @@ public:
 		delete n;
 	}
 	void push_back(const T& val) {
-		Node* n;
+		Node* n = new Node();
 		n->data = val;
-		n->previous = tail;
-		if (tail->previous == nullptr)
-			tail->previous = n;
+		n->prev = tail;
+		if (tail->prev == nullptr)
+			tail->prev = n;
 		tail = n;
 	}
 	void pop_back() {
-		Node* n;
+		Node* n = new Node();
 		if (tail != nullptr) {
 			n = tail;
 
-			if (tail->previous != nullptr) {
-				tail->previous->next = nullptr;
+			if (tail->prev != nullptr) {
+				tail->prev->next = nullptr;
 			}
 		}
-		tail = tail->previous;
+		tail = tail->prev;
 
 		delete n;
 	}
 
-	T& front() { return head; }
-	const T& front() const { return front(); }
-	T& back() { return tail; }
-	const T& back() const { return back(); }
+	T& front() { return head->data; }
+	const T& front() const { return head->data; }
+	T& back() { return tail->data; }
+	const T& back() const { return tail->data; }
 
 	void remove(const T& val) {
 		Node* n = head;
@@ -101,8 +89,8 @@ public:
 				{
 					head = n->next;
 					n->next = nullptr;
-					delete n;
 					n = nullptr;
+					delete n;
 					break;
 				}
 				else if (n == tail)
@@ -127,19 +115,33 @@ public:
 	}
 
 	bool empty() const {
-		if ((head == tail->previous) && (tail == head->next))
+		if ((head == tail->prev) && (tail == head->next))
 			return true;
 		else
 			return false;
 	}
 	void clear() {
-		resize(0);
+		
 	}
 	void resize(size_t newSize) {
-		nodeSize = newSize;
-	}
-	size_t size() const {
-		return nodeSize;
+		size_t size;
+		Node* n = new Node();
+		n->prev = tail;
+
+
+		if (tail->next == nullptr)
+			push_back();
+		tail = n;
+
+		/*if (> newSize) {
+
+		}
+
+		for (size_t i = 0; i < newSize; i++) {
+
+		}*/
+
+		delete n;
 	}
 
 	class iterator
@@ -147,10 +149,9 @@ public:
 		Node * cur;
 
 	public:
-		iterator() { cur = nullptr; }
+		iterator() { cur = new Node(); }
 		iterator(Node * startNode) {
 			cur = startNode;
-
 		}
 
 		bool operator==(const iterator& rhs) const {
@@ -162,39 +163,42 @@ public:
 			}
 		}
 		bool operator!=(const iterator& rhs) const {
-			if (cur != rhs.cur) {
-				return false;
-			}
-			else {
-				return true;
-			}
+			return !(*this == rhs);
 		}
-		T& operator*() const {
+		T& operator*() {
+			return cur->data;
+		}
+		const T& operator*() const {
 			return cur->data;
 		}
 		iterator& operator++() {
+			
 			cur = cur->next;
-			return this;
+			
+			return *this;
 		}
 		iterator operator++(int) {
-			iterator temp(cur);
-			++temp.cur;
-			return temp;
+			
+				cur = cur->next;
+						return *this;
 		}
 		iterator& operator--() {
-			cur = cur->prev;
-			return this;
+			if (cur != nullptr) {
+				cur = cur->prev;
+			}
+			return *this;
 		}
 		iterator operator--(int) {
-			iterator temp(cur);
-			--temp.cur;
-			return temp;
+			if (cur != nullptr) {
+				cur = cur->prev;
+			}
+			return *this;
 		}
 	};
 
 	iterator begin() { return iterator(head); }
-	const iterator begin() const { return iterator(head.next); }
-	iterator end() { return iterator(tail); }
-	const iterator end() const { return iterator(tail.previous); }
+	const iterator begin() const { return iterator(head); }
+	iterator end() { return iterator(nullptr); }
+	const iterator end() const { return iterator(nullptr); }
 };
 

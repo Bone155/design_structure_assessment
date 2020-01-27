@@ -11,6 +11,7 @@ int main() {
 	myList.push_front(12);
 	
 	auto iter = myList.begin();
+
 	while (iter != myList.end()) {
 		std::cout << *iter << std::endl;
 		iter++;
