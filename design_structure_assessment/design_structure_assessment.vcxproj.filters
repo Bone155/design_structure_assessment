@@ -18,9 +18,27 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Table.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Table.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HashTable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

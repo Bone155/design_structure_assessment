@@ -1,7 +1,13 @@
 ﻿  main.cpp
+c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\main.cpp(71): warning C4018: '<': signed/unsigned mismatch
+c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\main.cpp(77): warning C4018: '<': signed/unsigned mismatch
+c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\main.cpp(83): warning C4018: '<': signed/unsigned mismatch
+c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\main.cpp(90): warning C4018: '<': signed/unsigned mismatch
+c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\main.cpp(96): warning C4018: '<': signed/unsigned mismatch
+c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\main.cpp(102): warning C4018: '<': signed/unsigned mismatch
 c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\tlist.h(134): warning C4018: '<': signed/unsigned mismatch
   c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\tlist.h(125): note: while compiling class template member function 'void tList<int>::resize(size_t)'
-  c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\main.cpp(33): note: see reference to function template instantiation 'void tList<int>::resize(size_t)' being compiled
-  c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\main.cpp(5): note: see reference to class template instantiation 'tList<int>' being compiled
+  c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\main.cpp(34): note: see reference to function template instantiation 'void tList<int>::resize(size_t)' being compiled
+  c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\main.cpp(6): note: see reference to class template instantiation 'tList<int>' being compiled
 c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\tlist.h(139): warning C4018: '<': signed/unsigned mismatch
   design_structure_assessment.vcxproj -> C:\Users\s199010\source\repos\design_structure_assessment\Debug\design_structure_assessment.exe

@@ -1,0 +1,9 @@
+Ezio,89
+Evie,136
+Kassandra,200
+Connor,179
+Bayek,195
+Altiar,76
+Arno,93
+Jacob,103
+Edward,113
