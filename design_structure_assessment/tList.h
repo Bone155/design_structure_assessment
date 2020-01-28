@@ -7,6 +7,9 @@ class tList
 		T data;
 		Node * prev;
 		Node * next;
+
+		Node() { prev = next = nullptr; }
+		Node(const T& val) { prev = next = nullptr; data = val; }
 	};
 
 	Node * head;
@@ -14,8 +17,8 @@ class tList
 	
 public:
 	tList() { 
-		head = new Node();
-		tail = new Node();
+		head = nullptr;
+		tail = nullptr;
 	}
 	tList(const tList& other) {
 		head->data = other.head->data;
@@ -33,11 +36,13 @@ public:
 	~tList() { delete head; delete tail; }
 
 	void push_front(const T& val) {
-		Node* n = new Node();
-		n->data = val;
+		Node* n = new Node(val);
+		Node* oldHead = head;
 		n->next = head;
-		if (head->next == nullptr)
-			head->next = n;
+		if (oldHead != nullptr)
+			oldHead->prev = n;
+		if (tail == nullptr)
+			tail = n;
 		head = n;
 	}
 	void pop_front() {
@@ -46,7 +51,7 @@ public:
 			n = head;
 
 			if (head->next != nullptr) {
-				head->next->previous = nullptr;
+				head->next->prev = nullptr;
 			}
 		}
 		head = head->next;
@@ -54,25 +59,24 @@ public:
 		delete n;
 	}
 	void push_back(const T& val) {
-		Node* n = new Node();
-		n->data = val;
+		Node* n = new Node(val);
+		Node* oldTail = tail;
 		n->prev = tail;
-		if (tail->prev == nullptr)
-			tail->prev = n;
+		if (oldTail != nullptr)
+			oldTail->next = n;
+		if (head == nullptr)
+			head = n;
 		tail = n;
 	}
 	void pop_back() {
-		Node* n = new Node();
 		if (tail != nullptr) {
-			n = tail;
-
-			if (tail->prev != nullptr) {
-				tail->prev->next = nullptr;
+			auto n = tail;
+			tail = tail->prev;
+			if (tail != nullptr) {
+				tail->next = nullptr;
 			}
 		}
-		tail = tail->prev;
 
-		delete n;
 	}
 
 	T& front() { return head->data; }
@@ -82,64 +86,61 @@ public:
 
 	void remove(const T& val) {
 		Node* n = head;
-		while (n != nullptr) {
-			if (n.data == val) {
-				
+		while (n != nullptr)
+		{
+			if (n->data == val) {
 				if (n == head)
 				{
 					head = n->next;
-					n->next = nullptr;
-					n = nullptr;
-					delete n;
-					break;
 				}
 				else if (n == tail)
 				{
 					tail = n->prev;
 					tail->next = nullptr;
-					delete n;
-					break;
 				}
-				else
-				{
+				else {
 					n->prev->next = n->next;
 					n->next->prev = n->prev;
-					n->prev = nullptr;
-					n->next = nullptr;
-					delete n;
-					break;
 				}
-			}
-		}
 
+			}
+			n = n->next;
+		}
+		
+		delete n;
 	}
 
 	bool empty() const {
-		if ((head == tail->prev) && (tail == head->next))
+		if ((head == nullptr) && (tail == nullptr))
 			return true;
 		else
 			return false;
 	}
 	void clear() {
-		
+		head = new Node();
+		tail = new Node();
+		head = nullptr;
+		tail = nullptr;
 	}
 	void resize(size_t newSize) {
-		size_t size;
-		Node* n = new Node();
-		n->prev = tail;
-
-
-		if (tail->next == nullptr)
-			push_back();
-		tail = n;
-
-		/*if (> newSize) {
-
+		size_t size = 0;
+		Node* n = head;
+		while (n != nullptr)
+		{
+			n = n->next;
+			size++;
 		}
-
-		for (size_t i = 0; i < newSize; i++) {
-
-		}*/
+		if (size > newSize) {
+			for (int i = 0; i < size - newSize; i++) {
+				pop_back();
+			}
+		}
+		else if (size < newSize) {
+			for (int i = size; i < newSize; i++) {
+				n = new Node(0);
+				push_back((T)n->data);
+			}
+		}
 
 		delete n;
 	}
@@ -149,7 +150,7 @@ public:
 		Node * cur;
 
 	public:
-		iterator() { cur = new Node(); }
+		iterator() { cur = nullptr; }
 		iterator(Node * startNode) {
 			cur = startNode;
 		}
@@ -174,24 +175,19 @@ public:
 		iterator& operator++() {
 			
 			cur = cur->next;
-			
 			return *this;
 		}
 		iterator operator++(int) {
 			
-				cur = cur->next;
-						return *this;
+			cur = cur->next;
+			return *this;
 		}
 		iterator& operator--() {
-			if (cur != nullptr) {
-				cur = cur->prev;
-			}
+			cur = cur->prev;
 			return *this;
 		}
 		iterator operator--(int) {
-			if (cur != nullptr) {
-				cur = cur->prev;
-			}
+			cur = cur->prev;
 			return *this;
 		}
 	};
@@ -201,4 +197,3 @@ public:
 	iterator end() { return iterator(nullptr); }
 	const iterator end() const { return iterator(nullptr); }
 };
-
