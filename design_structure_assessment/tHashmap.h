@@ -1,38 +1,77 @@
 #pragma once
+#include <limits>
+#include <string>
+#include <iostream>
+
 template<typename K, typename V>
 class tHashmap
 {
 	V* data;
 	size_t size;
+	bool* isActive;
 
-	size_t Hash(const K &key) {
+	template<typename T>
+	size_t hash(const T& val) {
+		T::please_specialize_this_template_for_your_type;
+	}
+
+	template<>
+	size_t hash<int>(const int& val)
+	{
+		return val * 2654435761 % std::numeric_limits<size_t>::max();
+	}
+
+	template<>
+	size_t hash<std::string>(const std::string& val) {
 		size_t hash = 0;
-		for (size_t i = 0; i < size; ++i) {
-			hash += data[i];
+		for (size_t i = 0; i < val.length(); i++) {
+			hash += val[i];
 		}
 		return hash;
 	}
 
 public:
-	tHashmap(size_t newSize) : size(newSize), data(new V[newSize]) {}
-	~tHashmap() {}
+	tHashmap(size_t newSize) {
+		size = newSize;
+		data = new V[newSize];
+		isActive = new bool[newSize];
+		for (size_t i = 0; i < newSize; i++) {
+			isActive[i] = false;
+		}
+	}
+	~tHashmap() { delete data; delete isActive; }
 
 	V& operator[] (const K& key) {
-		auto hashedKey = Hash(key) % size;
+		auto hashedKey = hash<K>(key) % size;
+		isActive[hashedKey] = true;
 		return data[hashedKey];
 	}
 	const V& operator[] (const K& key) const {
-		auto hashedKey = Hash(key) % size;
+		auto hashedKey = hash<K>(key) % size;
+		isActive[hashedKey] = true;
 		return data[hashedKey];
 	}
 
 	V& at(const K& key) {
-		auto hashedKey = Hash(key) % size;
+
+		auto hashedKey = hash<K>(key) % size;
+		for (size_t i = 0; i < Size(); i++) {
+			if (isActive[hashedKey] != true) {
+				std::cout << "Key doesn't exist" << std::endl;
+				break;
+			}
+		}
 		return data[hashedKey];
 	}
 
 	size_t count(const K& key) {
-
+		size_t counter = 0;
+		auto hashedKey = hash<K>(key) % size;
+		for (size_t i = 0; i < Size(); i++) {
+			if (data[i] == data[hashedKey])
+				counter++;
+		}
+		return counter;
 	}
 
 	void clear() {
@@ -52,4 +91,3 @@ public:
 		size = newSize;
 	}
 };
-

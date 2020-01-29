@@ -14,10 +14,10 @@ void DLL() {
 	auto iter = myList.begin();
 
 	while (iter != myList.end()) {
-		std::cout << *iter << std::endl;
+		cout << *iter << endl;
 		iter++;
 	}
-	std::cout << std::endl;
+	cout << endl;
 
 	myList.pop_front();
 	myList.pop_back();
@@ -28,9 +28,9 @@ void DLL() {
 	myList.remove(91);
 
 	for (auto v : myList) {
-		std::cout << v << std::endl;
+		cout << v << endl;
 	}
-	std::cout << std::endl;
+	cout << endl;
 
 	myList.resize(9);
 	myList.push_front(54);
@@ -39,29 +39,29 @@ void DLL() {
 	myList.push_back(21);
 
 	for (auto v : myList) {
-		std::cout << v << std::endl;
+		cout << v << endl;
 	}
-	std::cout << std::endl;
+	cout << endl;
 	myList.remove(21);
 	myList.remove(0);
 
 	for (auto v : myList) {
-		std::cout << v << std::endl;
+		cout << v << endl;
 	}
-	std::cout << std::endl << myList.front() << std::endl << myList.back() << std::endl;
-	std::cout << std::endl;
+	cout << endl << myList.front() << endl << myList.back() << endl;
+	cout << endl;
 	myList.resize(5);
 
 	for (auto v : myList) {
-		std::cout << v << std::endl;
+		cout << v << endl;
 	}
-	std::cout << std::endl;
+	cout << endl;
 	myList.clear();
 
 	if (myList.empty())
-		std::cout << "List is now empty" << std::endl;
+		cout << "List is now empty" << endl;
 	for (auto v : myList) {
-		std::cout << v << std::endl;
+		cout << v << endl;
 	}
 }
 
@@ -86,7 +86,7 @@ void Merge() {
 	}
 	cout << endl;
 
-	cout << "---------------------------------------n/" << endl;
+	cout << "---------------------------------------" << endl;
 	topA = acTable.mostSkilled(6);
 	for (int i = 0; i < topA.size(); i++) {
 		cout << topA[i].name << "," << topA[i].skillLevel << endl;
@@ -118,17 +118,32 @@ void Hash() {
 	cout << test["Joe"] << endl;
 	cout << test["Bel"] << endl;
 	cout << test["Sam"] << endl;
-	cout << test["Dev"] << endl;
+	cout << test["Dev"] << endl << endl;
+
+	if (test.count("Alex") == 0)
+		cout << "There is no Alex" << endl << endl;
+	else
+		cout << "There is " << test.count("Alex") << " Alex" << endl << endl;
+
+	cout << test.at("Alex") << endl;
+	cout << test.at("Ryan") << endl;
+	cout << test.at("Bonesteel") << endl;
+	//I was using a basic hash function, which is why the bottom two keys aren't errors
+
+	test.clear();
+	if (test.empty()) {
+		cout << "List is now empty" << endl;
+	}
 }
 
 int main() {
-	//DLL();
-	cout << "Listn/---------------------------------------------n/" << endl;
+	cout << "List---------------------------------------------" << endl;
+	DLL();
 
-	//Merge();
-	cout << "Sorting---------------------------------------------n/" << endl;
+	cout << "Sorting---------------------------------------------" << endl << endl;
+	Merge();
 
-	cout << "Hashing---------------------------------------------n/" << endl;
+	cout << "Hashing---------------------------------------------" << endl << endl;
 	Hash();
 
 
