@@ -121,9 +121,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entry.h" />
-    <ClInclude Include="HashTable.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Table.h" />
+    <ClInclude Include="tHashmap.h" />
     <ClInclude Include="tList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

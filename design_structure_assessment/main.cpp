@@ -1,6 +1,7 @@
 #include <iostream>
 #include "tList.h"
 #include "Table.h"
+#include "tHashmap.h"
 
 void DLL() {
 	tList<int> myList;
@@ -105,23 +106,19 @@ void Merge() {
 	cout << endl;
 }
 
-size_t basicHash(unsigned char* data, size_t size) {
-	size_t hash = 0;
-	for (size_t i = 0; i < size; ++i) {
-		hash += data[i];
-	}
-	return hash;
-}
-size_t hardHash(unsigned char* data, size_t size) {
-	size_t hash = 0, x = 0;
-	for (size_t i = 0; i < size; ++i) {
-		hash = (hash << 4) + data[i];
-		if ((x = hash & 0xF0000000L) != 0) {
-			hash ^= (x >> 24);
-			hash &= ~x;
-		}
-	}
-	return (hash & 0x7FFFFFFF);
+void Hash() {
+	tHashmap<string, int> test(8);
+	test["Bel"] = 32;
+	test["Alex"] = 206;
+	test["Dev"] = 89;
+	test["Joe"] = 1;
+	test["Sam"] = 56;
+
+	cout << test["Alex"] << endl;
+	cout << test["Joe"] << endl;
+	cout << test["Bel"] << endl;
+	cout << test["Sam"] << endl;
+	cout << test["Dev"] << endl;
 }
 
 int main() {
@@ -132,7 +129,7 @@ int main() {
 	cout << "Sorting---------------------------------------------n/" << endl;
 
 	cout << "Hashing---------------------------------------------n/" << endl;
-
+	Hash();
 
 
 	system("pause");
