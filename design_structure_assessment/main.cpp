@@ -127,8 +127,8 @@ void Hash() {
 
 	cout << test.at("Alex") << endl;
 	cout << test.at("Ryan") << endl;
-	cout << test.at("Bonesteel") << endl;
-	//I was using a basic hash function, which is why the bottom two keys aren't errors
+	cout << test.at("Bonesteele") << endl;
+	//The last two are supposed to be errors
 
 	test.clear();
 	if (test.empty()) {
@@ -138,10 +138,10 @@ void Hash() {
 
 int main() {
 	cout << "List---------------------------------------------" << endl;
-	DLL();
+	//DLL();
 
 	cout << "Sorting---------------------------------------------" << endl << endl;
-	Merge();
+	//Merge();
 
 	cout << "Hashing---------------------------------------------" << endl << endl;
 	Hash();

@@ -5,9 +5,22 @@ c:\users\s199010\source\repos\design_structure_assessment\design_structure_asses
 c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\main.cpp(91): warning C4018: '<': signed/unsigned mismatch
 c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\main.cpp(97): warning C4018: '<': signed/unsigned mismatch
 c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\main.cpp(103): warning C4018: '<': signed/unsigned mismatch
-c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\tlist.h(134): warning C4018: '<': signed/unsigned mismatch
-  c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\tlist.h(125): note: while compiling class template member function 'void tList<int>::resize(size_t)'
-  c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\main.cpp(35): note: see reference to function template instantiation 'void tList<int>::resize(size_t)' being compiled
-  c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\main.cpp(7): note: see reference to class template instantiation 'tList<int>' being compiled
-c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\tlist.h(139): warning C4018: '<': signed/unsigned mismatch
-  design_structure_assessment.vcxproj -> C:\Users\s199010\source\repos\design_structure_assessment\Debug\design_structure_assessment.exe
+c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\thashmap.h(51): error C2440: '=': cannot convert from 'V *' to 'V'
+          with
+          [
+              V=int
+          ]
+  c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\thashmap.h(51): note: There is no context in which this conversion is possible
+  c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\thashmap.h(48): note: while compiling class template member function 'V &tHashmap<std::string,V>::operator [](const K &)'
+          with
+          [
+              V=int,
+              K=std::string
+          ]
+  c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\main.cpp(111): note: see reference to function template instantiation 'V &tHashmap<std::string,V>::operator [](const K &)' being compiled
+          with
+          [
+              V=int,
+              K=std::string
+          ]
+  c:\users\s199010\source\repos\design_structure_assessment\design_structure_assessment\main.cpp(110): note: see reference to class template instantiation 'tHashmap<std::string,int>' being compiled

@@ -1,5 +1,6 @@
 #pragma once
 #include <limits>
+#include <cassert>
 #include <string>
 #include <iostream>
 
@@ -16,18 +17,21 @@ class tHashmap
 	}
 
 	template<>
-	size_t hash<int>(const int& val)
-	{
+	size_t hash<int>(const int& val) {
 		return val * 2654435761 % std::numeric_limits<size_t>::max();
 	}
 
 	template<>
 	size_t hash<std::string>(const std::string& val) {
-		size_t hash = 0;
+		size_t hash = 0, x = 0;
 		for (size_t i = 0; i < val.length(); i++) {
-			hash += val[i];
+			hash = (hash << 4) + val[i];
+			if ((x = hash & 0xF0000000L) != 0) {
+				hash ^= (x >> 24);
+				hash &= ~x;
+			}
 		}
-		return hash;
+		return (hash & 0x7FFFFFFF);
 	}
 
 public:
@@ -43,24 +47,24 @@ public:
 
 	V& operator[] (const K& key) {
 		auto hashedKey = hash<K>(key) % size;
+		if (!isActive[hashedKey]) {
+			data[hashedKey] = new V();
+		}
 		isActive[hashedKey] = true;
 		return data[hashedKey];
 	}
 	const V& operator[] (const K& key) const {
 		auto hashedKey = hash<K>(key) % size;
+		if (!isActive[hashedKey]) {
+			data[hashedKey] = new V();
+		}
 		isActive[hashedKey] = true;
 		return data[hashedKey];
 	}
 
 	V& at(const K& key) {
-
 		auto hashedKey = hash<K>(key) % size;
-		for (size_t i = 0; i < Size(); i++) {
-			if (isActive[hashedKey] != true) {
-				std::cout << "Key doesn't exist" << std::endl;
-				break;
-			}
-		}
+		assert(isActive[hashedKey]);
 		return data[hashedKey];
 	}
 
