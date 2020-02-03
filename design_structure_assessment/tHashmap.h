@@ -3,6 +3,7 @@
 #include <cassert>
 #include <string>
 #include <iostream>
+#define NDEBUG
 
 template<typename K, typename V>
 class tHashmap
@@ -29,7 +30,8 @@ class tHashmap
 			if ((x = hash & 0xF0000000L) != 0) {
 				hash ^= (x >> 24);
 				hash &= ~x;
-			}
+			}
+
 		}
 		return (hash & 0x7FFFFFFF);
 	}
@@ -48,15 +50,18 @@ public:
 	V& operator[] (const K& key) {
 		auto hashedKey = hash<K>(key) % size;
 		if (!isActive[hashedKey]) {
-			data[hashedKey] = new V();
+			V * tmp = new V();
+			data[hashedKey] = *tmp;
 		}
 		isActive[hashedKey] = true;
 		return data[hashedKey];
 	}
+
 	const V& operator[] (const K& key) const {
 		auto hashedKey = hash<K>(key) % size;
 		if (!isActive[hashedKey]) {
-			data[hashedKey] = new V();
+			V * tmp = new V();
+			data[hashedKey] = *tmp;
 		}
 		isActive[hashedKey] = true;
 		return data[hashedKey];

@@ -107,7 +107,7 @@ void Merge() {
 }
 
 void Hash() {
-	tHashmap<string, int> test(8);
+	tHashmap<string, int> test(50);
 	test["Bel"] = 32;
 	test["Alex"] = 206;
 	test["Dev"] = 89;
